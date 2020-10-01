@@ -28,7 +28,7 @@ export interface ReactSelectMaterialUiProps
   onFocus?: (event: React.FocusEvent<HTMLElement>) => void;
   ref?: any;
   SelectProps?: SelectProps | any;
-  promiseOptions?: (inputValue: string) => Promise<string[]>;
+  loadOptions?: (inputValue: string) => Promise<string[]>;
   defaultOptions?: [];
   cacheOptions?: boolean;
   value?: any;
