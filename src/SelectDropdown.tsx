@@ -2,6 +2,8 @@ import * as React from "react";
 import Creatable, {CreatableProps} from "react-select/creatable";
 import AsyncCreatableSelect from 'react-select/async-creatable';
 import SelectReadOnly, {Props as ReactSelectProps} from "react-select";
+import AsyncSelect from 'react-select/async';
+
 import {isArray, isEmpty, isNil, some, toString} from "lodash";
 import {getStyles} from "./SelectDropdownStyles";
 
@@ -20,18 +22,18 @@ class SelectDropdown extends React.Component<SelectDropdownProps> {
             onChange,
             onFocus,
             onBlur,
-            promiseOptions,
+            loadOptions,
             defaultOptions,
             cacheOptions
         } = this.props;
 
         const Select: React.ComponentClass<any> =
-            selectProps && selectProps.isCreatable ? (promiseOptions ? AsyncCreatableSelect : Creatable) : SelectReadOnly;
+            selectProps && selectProps.isCreatable ? (loadOptions ? AsyncCreatableSelect : Creatable) :  (loadOptions ? AsyncSelect : SelectReadOnly) ;
         const optionsProps: any = {};
-        if (promiseOptions) {
+        if (loadOptions) {
             optionsProps.cacheOptions = cacheOptions !== undefined ? cacheOptions : false;
             optionsProps.defaultOptions = defaultOptions !== undefined ? defaultOptions : (options !== undefined ? options : []);
-            optionsProps.loadOptions = promiseOptions;
+            optionsProps.loadOptions = loadOptions;
         } else {
             optionsProps.options = options;
         }
@@ -123,7 +125,7 @@ class SelectDropdown extends React.Component<SelectDropdownProps> {
     }
 }
 
-const promiseOptions = (inputValue: string) =>
+const loadOptions = (inputValue: string) =>
     new Promise(resolve => {
         setTimeout(() => {
             resolve(["test"]);
@@ -136,7 +138,7 @@ export interface SelectDropdownProps {
     placeholder?: string;
     options?: SelectOption[];
     selectProps?: SelectProps;
-    promiseOptions?: (inputValue: string) => Promise<string[]>;
+    loadOptions?: (inputValue: string) => Promise<string[]>;
     defaultOptions?: [];
     cacheOptions?: boolean;
     hasInputFocus?: boolean;

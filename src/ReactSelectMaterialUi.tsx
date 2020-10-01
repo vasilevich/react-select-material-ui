@@ -186,7 +186,7 @@ class ReactSelectMaterialUi extends React.PureComponent<
       values,
       options,
       variant,
-      promiseOptions,
+      loadOptions,
       defaultOptions,
       cacheOptions,
       ...other
@@ -258,7 +258,7 @@ class ReactSelectMaterialUi extends React.PureComponent<
           onChange={this.handleChangeSelect}
           onFocus={this.handleGotFocus}
           onBlur={this.handleLostFocus}
-          promiseOptions={promiseOptions}
+          loadOptions={loadOptions}
           defaultOptions={defaultOptions}
           cacheOptions={cacheOptions}
         />
@@ -394,7 +394,7 @@ export interface ReactSelectMaterialUiProps
   onFocus?: (event: React.FocusEvent<HTMLElement>) => void;
   ref?: any;
   SelectProps?: SelectProps | any;
-  promiseOptions?: (inputValue: string) => Promise<string[]>;
+  loadOptions?: (inputValue: string) => Promise<string[]>;
   defaultOptions?: [];
   cacheOptions?: boolean;
   value?: SelectOptionValue;
