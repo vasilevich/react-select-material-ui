@@ -30,7 +30,7 @@ class SelectDropdown extends React.Component<SelectDropdownProps> {
         const optionsProps: any = {};
         if (promiseOptions) {
             optionsProps.cacheOptions = cacheOptions !== undefined ? cacheOptions : false;
-            optionsProps.defaultOptions = defaultOptions !== undefined ? defaultOptions : [];
+            optionsProps.defaultOptions = defaultOptions !== undefined ? defaultOptions : (options !== undefined ? options : []);
             optionsProps.loadOptions = promiseOptions;
         } else {
             optionsProps.options = options;
